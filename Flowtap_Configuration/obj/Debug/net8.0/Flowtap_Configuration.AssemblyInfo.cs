@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Flowtap_Configuration")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8f5f3572777b43bde8634056861f3d52b7e51c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Flowtap_Configuration")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Flowtap_Configuration")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\claude\\Flowtap_Backend\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj": {}
+    "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\claude\\Flowtap_Backend\\Flowtap_Application\\Flowtap_Application.csproj": {
+    "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Application\\Flowtap_Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\claude\\Flowtap_Backend\\Flowtap_Application\\Flowtap_Application.csproj",
+        "projectUniqueName": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Application\\Flowtap_Application.csproj",
         "projectName": "Flowtap_Application",
-        "projectPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Application\\Flowtap_Application.csproj",
+        "projectPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Application\\Flowtap_Application.csproj",
         "packagesPath": "C:\\Users\\Rajan\\.nuget\\packages\\",
-        "outputPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Application\\obj\\",
+        "outputPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\Flowtap_Domain.csproj": {
-                "projectPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\Flowtap_Domain.csproj"
+              "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\Flowtap_Domain.csproj": {
+                "projectPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\Flowtap_Domain.csproj"
               }
             }
           }
@@ -100,14 +100,14 @@
         }
       }
     },
-    "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\Flowtap_Domain.csproj": {
+    "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\Flowtap_Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\Flowtap_Domain.csproj",
+        "projectUniqueName": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\Flowtap_Domain.csproj",
         "projectName": "Flowtap_Domain",
-        "projectPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\Flowtap_Domain.csproj",
+        "projectPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\Flowtap_Domain.csproj",
         "packagesPath": "C:\\Users\\Rajan\\.nuget\\packages\\",
-        "outputPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\obj\\",
+        "outputPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -166,14 +166,14 @@
         }
       }
     },
-    "D:\\claude\\Flowtap_Backend\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj": {
+    "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\claude\\Flowtap_Backend\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
+        "projectUniqueName": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
         "projectName": "Flowtap_Infrastructure",
-        "projectPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
+        "projectPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Rajan\\.nuget\\packages\\",
-        "outputPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Infrastructure\\obj\\",
+        "outputPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -195,11 +195,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\claude\\Flowtap_Backend\\Flowtap_Application\\Flowtap_Application.csproj": {
-                "projectPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Application\\Flowtap_Application.csproj"
+              "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Application\\Flowtap_Application.csproj": {
+                "projectPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Application\\Flowtap_Application.csproj"
               },
-              "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\Flowtap_Domain.csproj": {
-                "projectPath": "D:\\claude\\Flowtap_Backend\\Flowtap_Domain\\Flowtap_Domain.csproj"
+              "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\Flowtap_Domain.csproj": {
+                "projectPath": "D:\\Git\\Flowtap_Backend_modern\\Flowtap_Domain\\Flowtap_Domain.csproj"
               }
             }
           }

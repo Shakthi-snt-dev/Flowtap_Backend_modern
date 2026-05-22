@@ -765,7 +765,7 @@ namespace Flowtap_Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConfigJson")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("jsonb");
 
                     b.Property<DateTime?>("ConnectedAt")
                         .HasColumnType("timestamp with time zone");

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Flowtap_Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260521162014_AddUserAccountIsActive")]
-    partial class AddUserAccountIsActive
+    [Migration("20260522045903_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -768,7 +768,7 @@ namespace Flowtap_Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConfigJson")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("jsonb");
 
                     b.Property<DateTime?>("ConnectedAt")
                         .HasColumnType("timestamp with time zone");

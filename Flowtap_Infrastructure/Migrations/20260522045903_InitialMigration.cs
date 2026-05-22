@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Flowtap_Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +34,57 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ActivityLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AdminBroadcasts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Subject = table.Column<string>(type: "text", nullable: false),
+                    Message = table.Column<string>(type: "text", nullable: false),
+                    Severity = table.Column<string>(type: "text", nullable: false),
+                    SentBy = table.Column<string>(type: "text", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    TargetType = table.Column<string>(type: "text", nullable: false),
+                    TargetRole = table.Column<string>(type: "text", nullable: true),
+                    Priority = table.Column<string>(type: "text", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminBroadcasts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AuditLogs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    EntityName = table.Column<string>(type: "text", nullable: false),
+                    EntityId = table.Column<string>(type: "text", nullable: false),
+                    Action = table.Column<string>(type: "text", nullable: false),
+                    OldValues = table.Column<string>(type: "text", nullable: true),
+                    NewValues = table.Column<string>(type: "text", nullable: true),
+                    ChangedColumns = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IpAddress = table.Column<string>(type: "text", nullable: true),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditLogs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,6 +177,23 @@ namespace Flowtap_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Conversations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    IsGroup = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Conversations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DeviceBrands",
                 columns: table => new
                 {
@@ -146,25 +214,25 @@ namespace Flowtap_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DiningTables",
+                name: "DirectMessages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TableNumber = table.Column<string>(type: "text", nullable: false),
-                    Capacity = table.Column<int>(type: "integer", nullable: false),
-                    Section = table.Column<string>(type: "text", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SenderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RecipientId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Subject = table.Column<string>(type: "text", nullable: false),
+                    Body = table.Column<string>(type: "text", nullable: false),
+                    IsRead = table.Column<bool>(type: "boolean", nullable: false),
+                    IsComplaint = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeletedBySender = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeletedByRecipient = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ReadAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DiningTables", x => x.Id);
+                    table.PrimaryKey("PK_DirectMessages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,34 +264,6 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InventorySettings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JewelryItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Purity = table.Column<string>(type: "text", nullable: false),
-                    GrossWeight = table.Column<decimal>(type: "numeric", nullable: false),
-                    NetWeight = table.Column<decimal>(type: "numeric", nullable: false),
-                    StoneWeight = table.Column<decimal>(type: "numeric", nullable: false),
-                    MakingChargePerGram = table.Column<decimal>(type: "numeric", nullable: false),
-                    MakingChargeFixed = table.Column<decimal>(type: "numeric", nullable: false),
-                    HallmarkDetails = table.Column<string>(type: "text", nullable: true),
-                    CertificateNumber = table.Column<string>(type: "text", nullable: true),
-                    MetalType = table.Column<string>(type: "text", nullable: true),
-                    StoneDetails = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JewelryItems", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -267,53 +307,6 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MarketingCampaigns", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MetalExchanges",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClientId = table.Column<Guid>(type: "uuid", nullable: false),
-                    MetalType = table.Column<string>(type: "text", nullable: false),
-                    Purity = table.Column<string>(type: "text", nullable: false),
-                    Weight = table.Column<decimal>(type: "numeric", nullable: false),
-                    RatePerGram = table.Column<decimal>(type: "numeric", nullable: false),
-                    TotalValue = table.Column<decimal>(type: "numeric", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    Notes = table.Column<string>(type: "text", nullable: true),
-                    ProcessedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MetalExchanges", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MetalRates",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    MetalType = table.Column<string>(type: "text", nullable: false),
-                    RatePerGram = table.Column<decimal>(type: "numeric", nullable: false),
-                    Currency = table.Column<string>(type: "text", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedByEmployeeId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MetalRates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -379,30 +372,6 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Patients",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    BloodGroup = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    Address = table.Column<string>(type: "text", nullable: true),
-                    MedicalHistory = table.Column<string>(type: "text", nullable: true),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Patients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -501,28 +470,6 @@ namespace Flowtap_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Recipes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FinishedProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DishName = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    PrepTimeMinutes = table.Column<int>(type: "integer", nullable: false),
-                    CookTimeMinutes = table.Column<int>(type: "integer", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recipes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RepairChecklistTemplates",
                 columns: table => new
                 {
@@ -539,28 +486,6 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RepairChecklistTemplates", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoomTypes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    BasePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    MaxOccupancy = table.Column<int>(type: "integer", nullable: false),
-                    AmenitiesJson = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoomTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -622,6 +547,8 @@ namespace Flowtap_Infrastructure.Migrations
                     ManagerEmployeeId = table.Column<Guid>(type: "uuid", nullable: true),
                     Financials_EstimatedCost = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
                     Financials_Prepayment = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
+                    Financials_PrepaymentMethod = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Financials_PrepaymentPaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Financials_TotalCost = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
                     Financials_IsPaid = table.Column<bool>(type: "boolean", nullable: true),
                     Priority = table.Column<int>(type: "integer", nullable: false),
@@ -661,6 +588,36 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StatusPermissions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StoreSettings",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ThemeMode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValue: "light"),
+                    ColorTheme = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false, defaultValue: "default"),
+                    AccentColor = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValue: "blue"),
+                    FontFamily = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false, defaultValue: "inter"),
+                    BorderRadius = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValue: "normal"),
+                    SidebarDensity = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValue: "comfortable"),
+                    RequireClientOnSale = table.Column<bool>(type: "boolean", nullable: false),
+                    AllowDiscount = table.Column<bool>(type: "boolean", nullable: false),
+                    MaxDiscountPercent = table.Column<decimal>(type: "numeric(5,2)", nullable: false),
+                    AllowVoid = table.Column<bool>(type: "boolean", nullable: false),
+                    RequireManagerPinForVoid = table.Column<bool>(type: "boolean", nullable: false),
+                    AutoPrintReceipt = table.Column<bool>(type: "boolean", nullable: false),
+                    ReceiptFooterText = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    OpeningTime = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: true),
+                    ClosingTime = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoreSettings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -796,6 +753,7 @@ namespace Flowtap_Infrastructure.Migrations
                     PasswordHash = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
                     OTP = table.Column<string>(type: "text", nullable: true),
                     OTPExpiresAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     IsEmailVerified = table.Column<bool>(type: "boolean", nullable: false),
                     EmailVerificationToken = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     EmailVerificationTokenExpiresAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -808,6 +766,27 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserAccounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserNotifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Message = table.Column<string>(type: "text", nullable: false),
+                    ReferenceId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ReferenceType = table.Column<string>(type: "text", nullable: true),
+                    IsRead = table.Column<bool>(type: "boolean", nullable: false),
+                    ReadAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserNotifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -836,6 +815,7 @@ namespace Flowtap_Infrastructure.Migrations
                     CurrentCapacityKg = table.Column<decimal>(type: "numeric", nullable: true),
                     MaxCapacityUnits = table.Column<int>(type: "integer", nullable: true),
                     CurrentCapacityUnits = table.Column<int>(type: "integer", nullable: true),
+                    HasRackSystem = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -872,6 +852,26 @@ namespace Flowtap_Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkTasks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AnnouncementTargets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AdminBroadcastId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnnouncementTargets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AnnouncementTargets_AdminBroadcasts_AdminBroadcastId",
+                        column: x => x.AdminBroadcastId,
+                        principalTable: "AdminBroadcasts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -914,6 +914,7 @@ namespace Flowtap_Infrastructure.Migrations
                     RefundReason = table.Column<string>(type: "text", nullable: true),
                     Notes = table.Column<string>(type: "text", nullable: true),
                     IdempotencyKey = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
+                    CashierEmployeeId = table.Column<Guid>(type: "uuid", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
@@ -929,6 +930,51 @@ namespace Flowtap_Infrastructure.Migrations
                         name: "FK_Sales_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChatMessages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ConversationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SenderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SenderName = table.Column<string>(type: "text", nullable: false),
+                    Body = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChatMessages_Conversations_ConversationId",
+                        column: x => x.ConversationId,
+                        principalTable: "Conversations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConversationParticipants",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ConversationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    JoinedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastSeenAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConversationParticipants", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConversationParticipants_Conversations_ConversationId",
+                        column: x => x.ConversationId,
+                        principalTable: "Conversations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -966,34 +1012,6 @@ namespace Flowtap_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "KitchenOrderTickets",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TableId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SaleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    KitchenNotes = table.Column<string>(type: "text", nullable: true),
-                    KOTNumber = table.Column<int>(type: "integer", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_KitchenOrderTickets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_KitchenOrderTickets_DiningTables_TableId",
-                        column: x => x.TableId,
-                        principalTable: "DiningTables",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CampaignTargetLocations",
                 columns: table => new
                 {
@@ -1008,37 +1026,6 @@ namespace Flowtap_Infrastructure.Migrations
                         name: "FK_CampaignTargetLocations_MarketingCampaigns_CampaignId",
                         column: x => x.CampaignId,
                         principalTable: "MarketingCampaigns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Appointments",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PatientId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DoctorEmployeeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ScheduledTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DurationMinutes = table.Column<int>(type: "integer", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    ReasonForVisit = table.Column<string>(type: "text", nullable: true),
-                    Notes = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Appointments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Appointments_Patients_PatientId",
-                        column: x => x.PatientId,
-                        principalTable: "Patients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1127,55 +1114,6 @@ namespace Flowtap_Infrastructure.Migrations
                         name: "FK_Products_ProductCategories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "ProductCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RecipeIngredients",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    RecipeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IngredientProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Quantity = table.Column<decimal>(type: "numeric", nullable: false),
-                    Unit = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecipeIngredients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RecipeIngredients_Recipes_RecipeId",
-                        column: x => x.RecipeId,
-                        principalTable: "Recipes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rooms",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RoomTypeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RoomNumber = table.Column<string>(type: "text", nullable: false),
-                    Floor = table.Column<string>(type: "text", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Rooms_RoomTypes_RoomTypeId",
-                        column: x => x.RoomTypeId,
-                        principalTable: "RoomTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1392,13 +1330,16 @@ namespace Flowtap_Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserAccountId = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
                     VATIN = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<string>(type: "text", nullable: true),
                     JobTitle = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     Department = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     JoinedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Comment = table.Column<string>(type: "text", nullable: true),
                     DefaultLocationId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Salary = table.Column<decimal>(type: "numeric", nullable: true),
+                    SalaryType = table.Column<string>(type: "text", nullable: true),
+                    SalaryCurrency = table.Column<string>(type: "text", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     AccessPin = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -1410,8 +1351,39 @@ namespace Flowtap_Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employees_Tenants_TenantId",
-                        column: x => x.TenantId,
+                        name: "FK_Employees_Tenants_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Integrations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Category = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Provider = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    DisplayName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    ConfigJson = table.Column<string>(type: "jsonb", nullable: true),
+                    IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    ConnectedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    WebhookUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    LastStatusMessage = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    LastCheckedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Integrations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Integrations_Tenants_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "Tenants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -1423,13 +1395,14 @@ namespace Flowtap_Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
                     CountryCode = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     SystemType = table.Column<int>(type: "integer", nullable: false),
                     TaxIdNumber = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     TaxRepresentativeName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     IsTaxExempt = table.Column<bool>(type: "boolean", nullable: false),
+                    IsInclusive = table.Column<bool>(type: "boolean", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -1439,11 +1412,16 @@ namespace Flowtap_Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_TaxConfigurations", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_TaxConfigurations_Tenants_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_TaxConfigurations_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1452,7 +1430,6 @@ namespace Flowtap_Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Code = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
@@ -1465,11 +1442,11 @@ namespace Flowtap_Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_TaxSlabs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaxSlabs_Tenants_TenantId",
-                        column: x => x.TenantId,
+                        name: "FK_TaxSlabs_Tenants_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "Tenants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1798,65 +1775,6 @@ namespace Flowtap_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "KOTItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    KOTId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductName = table.Column<string>(type: "text", nullable: false),
-                    Quantity = table.Column<decimal>(type: "numeric", nullable: false),
-                    Instructions = table.Column<string>(type: "text", nullable: true),
-                    Status = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_KOTItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_KOTItems_KitchenOrderTickets_KOTId",
-                        column: x => x.KOTId,
-                        principalTable: "KitchenOrderTickets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MedicalConsultations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    AppointmentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PatientId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DoctorEmployeeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ChiefComplaints = table.Column<string>(type: "text", nullable: false),
-                    Diagnosis = table.Column<string>(type: "text", nullable: false),
-                    ClinicalNotes = table.Column<string>(type: "text", nullable: true),
-                    VitalsJson = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MedicalConsultations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MedicalConsultations_Appointments_AppointmentId",
-                        column: x => x.AppointmentId,
-                        principalTable: "Appointments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MedicalConsultations_Patients_PatientId",
-                        column: x => x.PatientId,
-                        principalTable: "Patients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "InventoryCostLayers",
                 columns: table => new
                 {
@@ -2047,6 +1965,7 @@ namespace Flowtap_Infrastructure.Migrations
                     MRP = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     IsTaxIncluded = table.Column<bool>(type: "boolean", nullable: false),
+                    TaxSlabId = table.Column<Guid>(type: "uuid", nullable: true),
                     EffectiveFrom = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -2287,38 +2206,6 @@ namespace Flowtap_Infrastructure.Migrations
                         name: "FK_WarehouseStocks_Warehouses_WarehouseId",
                         column: x => x.WarehouseId,
                         principalTable: "Warehouses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Bookings",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    RoomId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClientId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    GuestCount = table.Column<int>(type: "integer", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
-                    Notes = table.Column<string>(type: "text", nullable: true),
-                    BookingNumber = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Bookings_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -2617,7 +2504,6 @@ namespace Flowtap_Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Phone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Address = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
@@ -2628,8 +2514,10 @@ namespace Flowtap_Infrastructure.Migrations
                     CountryCode = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     CurrencyCode = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     TimeZoneId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    LocationCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     TaxConfigurationId = table.Column<Guid>(type: "uuid", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -2644,11 +2532,16 @@ namespace Flowtap_Infrastructure.Migrations
                         principalTable: "TaxConfigurations",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_Stores_Tenants_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Stores_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -2751,28 +2644,6 @@ namespace Flowtap_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prescriptions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ConsultationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    MedicineName = table.Column<string>(type: "text", nullable: false),
-                    Dosage = table.Column<string>(type: "text", nullable: false),
-                    Duration = table.Column<string>(type: "text", nullable: false),
-                    Instructions = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Prescriptions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Prescriptions_MedicalConsultations_ConsultationId",
-                        column: x => x.ConsultationId,
-                        principalTable: "MedicalConsultations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "InventoryWriteOffAttachments",
                 columns: table => new
                 {
@@ -2834,42 +2705,6 @@ namespace Flowtap_Infrastructure.Migrations
                         name: "FK_ReorderAlerts_Warehouses_WarehouseId",
                         column: x => x.WarehouseId,
                         principalTable: "Warehouses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StayRecords",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RoomId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CheckInTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CheckOutTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
-                    GuestNotes = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StayRecords", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StayRecords_Bookings_BookingId",
-                        column: x => x.BookingId,
-                        principalTable: "Bookings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StayRecords_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -3068,9 +2903,9 @@ namespace Flowtap_Infrastructure.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_PatientId",
-                table: "Appointments",
-                column: "PatientId");
+                name: "IX_AnnouncementTargets_AdminBroadcastId",
+                table: "AnnouncementTargets",
+                column: "AdminBroadcastId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_CompanyId",
@@ -3099,11 +2934,6 @@ namespace Flowtap_Infrastructure.Migrations
                 column: "InvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_RoomId",
-                table: "Bookings",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CampaignProductRules_CampaignId",
                 table: "CampaignProductRules",
                 column: "CampaignId");
@@ -3119,6 +2949,11 @@ namespace Flowtap_Infrastructure.Migrations
                 columns: new[] { "CampaignId", "LocationId" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ChatMessages_ConversationId",
+                table: "ChatMessages",
+                column: "ConversationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_CompanyId_Phone",
                 table: "Clients",
                 columns: new[] { "CompanyId", "Phone" });
@@ -3132,6 +2967,11 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "IX_CompanySubscriptions_SubscriptionPlanId",
                 table: "CompanySubscriptions",
                 column: "SubscriptionPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConversationParticipants_ConversationId",
+                table: "ConversationParticipants",
+                column: "ConversationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeviceModels_BrandId",
@@ -3174,11 +3014,6 @@ namespace Flowtap_Infrastructure.Migrations
                 columns: new[] { "CompanyId", "UserAccountId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_TenantId",
-                table: "Employees",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeStatusPermissions_EmployeeId_StatusPermissionId",
                 table: "EmployeeStatusPermissions",
                 columns: new[] { "EmployeeId", "StatusPermissionId" });
@@ -3187,6 +3022,17 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "IX_EmployeeStatusPermissions_StatusPermissionId",
                 table: "EmployeeStatusPermissions",
                 column: "StatusPermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Integrations_CompanyId",
+                table: "Integrations",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Integrations_CompanyId_Provider",
+                table: "Integrations",
+                columns: new[] { "CompanyId", "Provider" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_InventoryCostLayers_ProductId_WarehouseId",
@@ -3307,16 +3153,6 @@ namespace Flowtap_Infrastructure.Migrations
                 column: "WarehouseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KitchenOrderTickets_TableId",
-                table: "KitchenOrderTickets",
-                column: "TableId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_KOTItems_KOTId",
-                table: "KOTItems",
-                column: "KOTId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LocationInventorySettings_LocationId",
                 table: "LocationInventorySettings",
                 column: "LocationId",
@@ -3336,17 +3172,6 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "IX_MarketingCampaigns_CompanyId",
                 table: "MarketingCampaigns",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MedicalConsultations_AppointmentId",
-                table: "MedicalConsultations",
-                column: "AppointmentId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MedicalConsultations_PatientId",
-                table: "MedicalConsultations",
-                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Offers_CompanyId",
@@ -3405,6 +3230,11 @@ namespace Flowtap_Infrastructure.Migrations
                 column: "SaleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_TicketId",
+                table: "Payments",
+                column: "TicketId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Permissions_CategoryId",
                 table: "Permissions",
                 column: "CategoryId");
@@ -3414,11 +3244,6 @@ namespace Flowtap_Infrastructure.Migrations
                 table: "Permissions",
                 column: "Key",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Prescriptions_ConsultationId",
-                table: "Prescriptions",
-                column: "ConsultationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_CompanyId",
@@ -3511,11 +3336,6 @@ namespace Flowtap_Infrastructure.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecipeIngredients_RecipeId",
-                table: "RecipeIngredients",
-                column: "RecipeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_Token",
                 table: "RefreshTokens",
                 column: "Token",
@@ -3560,11 +3380,6 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "IX_RepairChecklistTemplates_CompanyId",
                 table: "RepairChecklistTemplates",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rooms_RoomTypeId",
-                table: "Rooms",
-                column: "RoomTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SalarySettings_EmployeeId",
@@ -3661,17 +3476,6 @@ namespace Flowtap_Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_StayRecords_BookingId",
-                table: "StayRecords",
-                column: "BookingId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StayRecords_RoomId",
-                table: "StayRecords",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StockAdjustments_CompanyId",
                 table: "StockAdjustments",
                 column: "CompanyId");
@@ -3710,6 +3514,17 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "IX_Stores_TenantId",
                 table: "Stores",
                 column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StoreSettings_CompanyId",
+                table: "StoreSettings",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StoreSettings_LocationId",
+                table: "StoreSettings",
+                column: "LocationId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubscriptionChangeLogs_CompanySubscriptionId",
@@ -3756,11 +3571,6 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "IX_TaxSlabs_CompanyId",
                 table: "TaxSlabs",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TaxSlabs_TenantId",
-                table: "TaxSlabs",
-                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TechnicalFaults_CompanyId",
@@ -3876,7 +3686,13 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "ActivityLogs");
 
             migrationBuilder.DropTable(
+                name: "AnnouncementTargets");
+
+            migrationBuilder.DropTable(
                 name: "AppUsers");
+
+            migrationBuilder.DropTable(
+                name: "AuditLogs");
 
             migrationBuilder.DropTable(
                 name: "BarcodeTemplates");
@@ -3891,6 +3707,15 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "CampaignTargetLocations");
 
             migrationBuilder.DropTable(
+                name: "ChatMessages");
+
+            migrationBuilder.DropTable(
+                name: "ConversationParticipants");
+
+            migrationBuilder.DropTable(
+                name: "DirectMessages");
+
+            migrationBuilder.DropTable(
                 name: "EmployeeLocationAccesses");
 
             migrationBuilder.DropTable(
@@ -3901,6 +3726,9 @@ namespace Flowtap_Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "EmployeeStatusPermissions");
+
+            migrationBuilder.DropTable(
+                name: "Integrations");
 
             migrationBuilder.DropTable(
                 name: "InventoryCostLayers");
@@ -3921,22 +3749,10 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "InventoryWriteOffAttachments");
 
             migrationBuilder.DropTable(
-                name: "JewelryItems");
-
-            migrationBuilder.DropTable(
-                name: "KOTItems");
-
-            migrationBuilder.DropTable(
                 name: "LocationInventorySettings");
 
             migrationBuilder.DropTable(
                 name: "LocationOrderTypes");
-
-            migrationBuilder.DropTable(
-                name: "MetalExchanges");
-
-            migrationBuilder.DropTable(
-                name: "MetalRates");
 
             migrationBuilder.DropTable(
                 name: "NotificationQueues");
@@ -3952,9 +3768,6 @@ namespace Flowtap_Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Payments");
-
-            migrationBuilder.DropTable(
-                name: "Prescriptions");
 
             migrationBuilder.DropTable(
                 name: "ProductDeviceModelMappings");
@@ -3973,9 +3786,6 @@ namespace Flowtap_Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "PurchaseReturnItems");
-
-            migrationBuilder.DropTable(
-                name: "RecipeIngredients");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
@@ -4011,13 +3821,13 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "ServiceTicketPartUsages");
 
             migrationBuilder.DropTable(
-                name: "StayRecords");
-
-            migrationBuilder.DropTable(
                 name: "StockAdjustments");
 
             migrationBuilder.DropTable(
                 name: "StockBatches");
+
+            migrationBuilder.DropTable(
+                name: "StoreSettings");
 
             migrationBuilder.DropTable(
                 name: "SubscriptionChangeLogs");
@@ -4044,6 +3854,9 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "TrialPlans");
 
             migrationBuilder.DropTable(
+                name: "UserNotifications");
+
+            migrationBuilder.DropTable(
                 name: "UserNotificationSettings");
 
             migrationBuilder.DropTable(
@@ -4062,6 +3875,9 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "WorkTaskTags");
 
             migrationBuilder.DropTable(
+                name: "AdminBroadcasts");
+
+            migrationBuilder.DropTable(
                 name: "BillingInvoices");
 
             migrationBuilder.DropTable(
@@ -4069,6 +3885,9 @@ namespace Flowtap_Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "MarketingCampaigns");
+
+            migrationBuilder.DropTable(
+                name: "Conversations");
 
             migrationBuilder.DropTable(
                 name: "Permissions");
@@ -4086,9 +3905,6 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "InventoryWriteOffs");
 
             migrationBuilder.DropTable(
-                name: "KitchenOrderTickets");
-
-            migrationBuilder.DropTable(
                 name: "OrderTypes");
 
             migrationBuilder.DropTable(
@@ -4098,16 +3914,10 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "PaymentAccounts");
 
             migrationBuilder.DropTable(
-                name: "MedicalConsultations");
-
-            migrationBuilder.DropTable(
                 name: "DeviceModels");
 
             migrationBuilder.DropTable(
                 name: "PurchaseReturns");
-
-            migrationBuilder.DropTable(
-                name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "ReorderRules");
@@ -4120,9 +3930,6 @@ namespace Flowtap_Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Services");
-
-            migrationBuilder.DropTable(
-                name: "Bookings");
 
             migrationBuilder.DropTable(
                 name: "TaxSlabs");
@@ -4146,13 +3953,7 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "PermissionCategories");
 
             migrationBuilder.DropTable(
-                name: "DiningTables");
-
-            migrationBuilder.DropTable(
                 name: "TaxConfigurations");
-
-            migrationBuilder.DropTable(
-                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "DeviceBrands");
@@ -4170,9 +3971,6 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "ServiceCategories");
 
             migrationBuilder.DropTable(
-                name: "Rooms");
-
-            migrationBuilder.DropTable(
                 name: "WarehouseRacks");
 
             migrationBuilder.DropTable(
@@ -4182,16 +3980,10 @@ namespace Flowtap_Infrastructure.Migrations
                 name: "Tenants");
 
             migrationBuilder.DropTable(
-                name: "Patients");
-
-            migrationBuilder.DropTable(
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");
-
-            migrationBuilder.DropTable(
-                name: "RoomTypes");
 
             migrationBuilder.DropTable(
                 name: "Warehouses");
